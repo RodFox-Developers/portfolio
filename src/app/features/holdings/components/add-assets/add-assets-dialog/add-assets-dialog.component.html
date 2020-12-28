@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Add asset to portfolio</h2>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Input symbol</mat-label>
+    <input matInput placeholder="SPY" value="" />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="fill">
+    <mat-label>Select Category</mat-label>
+    <mat-select [value]="">
+      <mat-option value="cash">Cash</mat-option>
+      <mat-option value="stocks">Stocks</mat-option>
+      <mat-option value="bonds">Bonds</mat-option>
+      <mat-option value="commodities">Commodities</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="fill">
+    <mat-label>Entry price</mat-label>
+    <input matInput type="number" class="example-right-align" />
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
