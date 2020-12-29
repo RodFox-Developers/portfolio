@@ -1,31 +1,35 @@
 <h2 mat-dialog-title>Add asset to portfolio</h2>
-<div mat-dialog-content>
-  <mat-form-field appearance="outline">
-    <mat-label>Input symbol</mat-label>
-    <input matInput placeholder="SPY" value="" />
-  </mat-form-field>
-  <br />
-  <mat-form-field appearance="fill">
-    <mat-label>Select Category</mat-label>
-    <mat-select [value]="">
-      <mat-option value="cash">Cash</mat-option>
-      <mat-option value="stocks">Stocks</mat-option>
-      <mat-option value="bonds">Bonds</mat-option>
-      <mat-option value="commodities">Commodities</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <mat-form-field appearance="fill">
-    <mat-label>Amount</mat-label>
-    <input matInput type="number" class="example-right-align" />
-  </mat-form-field>
-  <br />
-  <mat-form-field appearance="fill">
-    <mat-label>Entry price</mat-label>
-    <input matInput type="number" class="example-right-align" />
-    <span matPrefix>$&nbsp;</span>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</div>
+<form [formGroup]="assetsForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Input symbol</mat-label>
+      <input formControlName="symbol" matInput placeholder="SPY" value="" />
+      <mat-error *ngIf="assetsForm.get('symbol').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category" [value]="">
+        <mat-option *ngFor="let category of categories"  value="category"> {{ category }} </mat-option>
+      </mat-select>
+      <mat-error *ngIf="assetsForm.get('category').invalid">You must select a category.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Units</mat-label>
+      <input formControlName="units" matInput type="number" class="example-right-align" />
+      <mat-error *ngIf="assetsForm.get('units').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Avg. open price</mat-label>
+      <input formControlName="avgOpenPrice" matInput type="number" class="example-right-align" />
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="assetsForm.get('avgOpenPrice').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-button mat-dialog-close>Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  [disabled]="assetsForm.invalid">Save</button>
+  </div>
+</form>

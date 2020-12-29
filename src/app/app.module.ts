@@ -11,10 +11,14 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './shared/material.module';
 import { FeatureModule } from './features/feature.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NavComponent } from './shared/components/nav/nav.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     MaterialModule,
     SharedModule,
-    FeatureModule
+    FeatureModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
