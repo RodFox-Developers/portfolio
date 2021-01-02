@@ -1,4 +1,4 @@
-import { AddAssetsDialogComponent } from './add-assets-dialog/add-assets-dialog.component';
+import { AddAssetsDialogComponent } from '../add-assets-dialog/add-assets-dialog.component';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
