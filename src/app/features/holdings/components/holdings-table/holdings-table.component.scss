@@ -5,3 +5,16 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+
+.hide {
+  display: none;
+}
+
+mat-footer-row mat-footer-cell {
+  font-style: italic;
+}
+
+.total {
+  font-weight: bold;
+  padding-top: 20px;
+}

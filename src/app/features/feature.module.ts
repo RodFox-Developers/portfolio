@@ -9,9 +9,6 @@ import { HoldingsTableComponent } from './holdings/components/holdings-table/hol
 import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { TableComponent } from './holdings/components/table/table.component';
-
-
 
 @NgModule({
   declarations: [
@@ -20,8 +17,7 @@ import { TableComponent } from './holdings/components/table/table.component';
     PageNotFoundComponent,
     HoldingsTableComponent,
     AddAssetsComponent,
-    AddAssetsDialogComponent,
-    TableComponent
+    AddAssetsDialogComponent
   ],
   imports: [
     CommonModule,

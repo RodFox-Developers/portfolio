@@ -64,6 +64,35 @@
     <td mat-cell *matCellDef="let element">{{ (element.units * element.price) }}</td>
   </ng-container>
 
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef ></th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-button color="primary" (click)="onEdit(row)"><mat-icon class="mat-18">edit</mat-icon></button>
+      <button mat-button color="warn" (click)="onDelete(row.$key)"><mat-icon class="mat-18">delete_outline</mat-icon></button>
+    </td>
+  </ng-container>
+
+      <!-- Loading column -->
+  <ng-container matColumnDef="loading">
+    <mat-footer-cell *matFooterCellDef>Loading data...</mat-footer-cell>
+  </ng-container>
+
+  <!-- No data column -->
+  <ng-container matColumnDef="noData">
+    <mat-footer-cell *matFooterCellDef>No data...</mat-footer-cell>
+  </ng-container>
+
+  <!-- No data column -->
+  <ng-container matColumnDef="total">
+    <mat-footer-cell *matFooterCellDef>
+      <h3 class="total">Total Portfolio Value: </h3>
+    </mat-footer-cell>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide' : dataSource != null}"></mat-footer-row>
+  <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide' : !(dataSource != null && dataSource.data.length==0)}"></mat-footer-row>
+  <mat-footer-row *matFooterRowDef="['total']"></mat-footer-row>
 </table>

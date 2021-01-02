@@ -25,7 +25,7 @@ export class HoldingsService {
     'avgOpenPrice': new FormControl(null, Validators.required)
   })
 
-/*   initFormGroup() {
+  initFormGroup() {
     this.form.setValue({
       $key: null,
       'symbol': '',
@@ -33,7 +33,7 @@ export class HoldingsService {
       'units': null,
       'avgOpenPrice': null
     })
-  } */
+  }
 
   getStockPrice(symbol: string) {
     return this.http.get(`http://api.marketstack.com/v1/eod?access_key=de917322f2f8bcfff4e4a8283df6589a&symbols=${symbol}`)
@@ -59,7 +59,6 @@ export class HoldingsService {
           a['$key'] = action.key;
           this.getStockPrice(a.symbol).pipe(take(1)).subscribe(data => {
             a.price = data;
-            console.log('price: ' + data);
           });
           return a;
         })
@@ -83,17 +82,20 @@ export class HoldingsService {
       'units': asset.units,
       'avgOpenPrice': asset.avgOpenPrice
     })
-/*     return this.db.object('/assets/' + asset.$key).set({
+  }
+
+  deleteAssetList(key) {
+    this.assetsList.remove(key);
+  }
+
+  showAssetonDialog(asset) {
+    this.form.setValue({
+      $key: asset.$key,
       'symbol': asset.symbol,
       'category': asset.category,
       'units': asset.units,
       'avgOpenPrice': asset.avgOpenPrice
-    }); */
-  }
-
-  deleteAssetList(asset: HoldingsTable) {
-    this.assetsList.remove(asset.$key);
-    /* return this.db.object('/assets/' + asset.$key).remove(); */
+    });
   }
 
 }

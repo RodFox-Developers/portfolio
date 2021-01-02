@@ -1,3 +1,4 @@
+import { HoldingsService } from './../../services/holdings.service';
 import { AddAssetsDialogComponent } from '../add-assets-dialog/add-assets-dialog.component';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,9 +10,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AddAssetsComponent {
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private holdingsService: HoldingsService
+    ) {}
 
   openDialog() {
+    this.holdingsService.initFormGroup();
     this.dialog.open(AddAssetsDialogComponent);
   }
 

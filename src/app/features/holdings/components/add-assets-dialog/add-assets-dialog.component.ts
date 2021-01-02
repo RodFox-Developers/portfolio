@@ -23,7 +23,12 @@ export class AddAssetsDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.assetsForm.invalid) return
-    this.holdingsService.setAssetsList(this.assetsForm.value);
+    if (this.holdingsService.form.get('$key').value) {
+      this.holdingsService.updateAssetsList(this.holdingsService.form.value);
+    } else {
+      this.holdingsService.setAssetsList(this.assetsForm.value);
+    }
+
     this.assetsForm.reset();
     this.notificationService.success(':: Submitted successfully')
   }
