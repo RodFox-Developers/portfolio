@@ -1,8 +1,9 @@
+import { async } from '@angular/core/testing';
 import { HoldingsTable } from './../models/holdings-table.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, take } from 'rxjs/operators';
+import { map, reduce, take } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
@@ -36,10 +37,10 @@ export class HoldingsService {
   }
 
   getStockPrice(symbol: string) {
-    return this.http.get(`http://api.marketstack.com/v1/eod?access_key=de917322f2f8bcfff4e4a8283df6589a&symbols=${symbol}`)
+    return this.http.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5`)
       .pipe(
         map(response => {
-          const dataPrice = response['data'];
+          const dataPrice = response['Time Series (Daily)'];
             if (dataPrice) {
               const dataPriceArray = Object.values(dataPrice);
               const lastPrice = Object.values(dataPriceArray[0]);
@@ -98,4 +99,36 @@ export class HoldingsService {
     });
   }
 
+  getTotalInvested() {
+    return this.getAssetsList().pipe(
+      map(res => {
+        return res.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
+      })
+    )
+  }
+
+  getTotalProfitLoss() {
+    return this.getAssetsList()
+    .pipe(
+      map(res => {
+        return res.map(t => t.price)
+      })
+    )
+  }
+
+  getTotalProfitLossPercent() {
+    return this.getAssetsList().pipe(
+      map(res => {
+        return res.map(t => t.units).reduce((acc, value) => acc + value, 0);
+      })
+    )
+  }
+
+  getTotal() {
+    return this.getAssetsList().pipe(
+      map(res => {
+        return res.map(t => t.price).reduce((acc, value) => acc + value, 0);
+      })
+    )
+  }
 }

@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssetsDialogComponent } from '../add-assets-dialog/add-assets-dialog.component';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-holdings-table',
@@ -20,6 +22,11 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
+  totalInvested: number;
+  totalProfitLoss;
+  totalProfitLossPercent: number;
+  totalValue: number;
+
   constructor(
     private holdingsService: HoldingsService,
     public dialog: MatDialog,
@@ -31,6 +38,13 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     this.subscription = this.holdingsService.getAssetsList().subscribe(a => {
       this.dataSource = new MatTableDataSource<HoldingsTable>(a);
     });
+    this.holdingsService.getTotalInvested().subscribe(res => this.totalInvested = res);
+    this.holdingsService.getTotalProfitLoss().subscribe(res => {
+        console.log(res);
+      this.totalProfitLoss = res;
+    });
+    /* this.holdingsService.getTotalProfitLossPercent().subscribe(res => this.totalProfitLossPercent = res); */
+    /* this.holdingsService.getTotal().subscribe(res => this.totalValue = res); */
   }
 
   ngOnDestroy() {
@@ -53,4 +67,5 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
         return
       })
   }
+
 }
