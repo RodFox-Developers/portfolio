@@ -1,0 +1,65 @@
+mat-toolbar {
+  background-color: #9DB1BF;
+  color: #163F59;
+}
+
+.content {
+  height: 90vh;
+  .mat-display-2 {
+    text-align: center;
+  }
+  .bg-content {
+    background: url('https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2Fimg-portfolio-bg.png?alt=media&token=4146a2a3-4a8d-4b2a-aff0-86897eb12b51') no-repeat center center;
+    background-color: white;
+    -ms-background-size: contain;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+
+  .bg-shape {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2FszUXL.png?alt=media&token=6ddb758f-c08e-4024-9e13-78242408e931') no-repeat;
+    background-color: white;
+    -ms-background-size: contain;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+    color: #163F59;
+  }
+}
+
+.footer {
+  background-color: #F4F4EF;
+  height: 10vh;
+  color: #163F59;
+}
+
+.services {
+  padding: 10rem 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2Fbanner_curve.png?alt=media&token=2ebe0768-5506-4a2f-813b-269b9c826de2') no-repeat;
+  background-color: white;
+  -ms-background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  background-position: bottom;
+  color: #163F59;
+  mat-card-header {
+    margin: 2rem;
+  }
+  img {
+    margin-top: 1rem;
+    width: 80%;
+  }
+}
+
+.example-card {
+  max-width: 400px;
+  text-align: center;
+}
+
+
+

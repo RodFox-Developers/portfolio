@@ -1,3 +1,5 @@
+import { CoreModule } from './core/core.module';
+import { HomeComponent } from './features/home/home.component';
 import { environment } from './../environments/environment';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,11 +21,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-  ],
+    HomeComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,7 +40,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
