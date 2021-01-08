@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Sign Up Form</h1>
+<form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+  <div mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>First name</mat-label>
+        <input formControlName="inputFirstName" type="text" matInput  maxlength="10" placeholder="First Name">
+        <mat-error *ngIf="signUpForm.get('inputFirstName').invalid">You must enter a value.</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input formControlName="inputLastname" type="text" matInput maxlength="10" placeholder="Last Name">
+        <mat-error *ngIf="signUpForm.get('inputLastname').invalid">You must enter a value.</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input formControlName="inputEmail" type="email" matInput placeholder="pat@example.com">
+        <mat-error *ngIf="signUpForm.get('inputEmail').invalid">
+          <div *ngIf="signUpForm.get('inputEmail').errors.required" >You must enter a value.</div>
+          <div *ngIf="signUpForm.get('inputEmail').errors.pattern" >You must enter a valid email.</div>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Create a password</mat-label>
+        <input formControlName="inputPassword" matInput type="password">
+        <mat-error *ngIf="signUpForm.get('inputPassword').invalid">
+          <div *ngIf="signUpForm.get('inputPassword').errors.required" >You must enter a value.</div>
+          <div *ngIf="signUpForm.get('inputPassword').errors.pattern" >Password should contain at least eight characters, one uppercase letter, one lowercase letter, one number and one special character.</div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="signUpForm.invalid">Sign Up</button>
+  </div>
+</form>

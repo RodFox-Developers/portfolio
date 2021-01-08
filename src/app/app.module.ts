@@ -19,6 +19,7 @@ import { NavComponent } from './shared/components/nav/nav.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 
 
@@ -26,7 +27,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent
    ],
   imports: [
     BrowserModule,

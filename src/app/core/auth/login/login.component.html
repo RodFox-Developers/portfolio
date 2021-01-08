@@ -1,3 +1,30 @@
-<p>
-  login works!
-</p>
+<h1 mat-dialog-title>Login Form</h1>
+<form [formGroup]="loginForm" (ngSubmit)="onSignUp()">
+  <div mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input formControlName="inputEmail" type="text" matInput placeholder="pat@example.com">
+        <mat-error *ngIf="loginForm.get('inputEmail').invalid">
+          <div *ngIf="loginForm.get('inputEmail').errors.required" >You must enter a value.</div>
+          <div *ngIf="loginForm.get('inputEmail').errors.pattern" >You must enter a valid email.</div>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input formControlName="inputPassword" type="password" matInput>
+        <mat-error *ngIf="loginForm.get('inputPassword').invalid">
+          <div *ngIf="loginForm.get('inputPassword').errors.required" >You must enter a value.</div>
+          <div *ngIf="loginForm.get('inputPassword').errors.pattern" >Password should contain at least eight characters, one uppercase letter, one lowercase letter, one number and one special character.</div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="loginForm.invalid">Login</button>
+  </div>
+</form>
+
+

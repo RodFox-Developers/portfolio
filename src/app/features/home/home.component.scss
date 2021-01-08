@@ -3,8 +3,14 @@ mat-toolbar {
   color: #163F59;
 }
 
+mat-divider {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .content {
   height: 90vh;
+  padding-bottom: 5rem;
   .mat-display-2 {
     text-align: center;
   }
@@ -30,14 +36,8 @@ mat-toolbar {
   }
 }
 
-.footer {
-  background-color: #F4F4EF;
-  height: 10vh;
-  color: #163F59;
-}
-
 .services {
-  padding: 10rem 0;
+  padding: 5rem 0;
   background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2Fbanner_curve.png?alt=media&token=2ebe0768-5506-4a2f-813b-269b9c826de2') no-repeat;
   background-color: white;
   -ms-background-size: contain;
