@@ -1,9 +1,8 @@
-import { async } from '@angular/core/testing';
 import { HoldingsTable } from './../models/holdings-table.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, reduce, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
@@ -45,6 +44,8 @@ export class HoldingsService {
               const dataPriceArray = Object.values(dataPrice);
               const lastPrice = Object.values(dataPriceArray[0]);
               return lastPrice[3];
+            } else {
+              return console.log('no server connection');
             }
         })
       );
@@ -58,9 +59,6 @@ export class HoldingsService {
         return actions.map(action => {
           const a = action.payload.val();
           a['$key'] = action.key;
-          this.getStockPrice(a.symbol).pipe(take(1)).subscribe(data => {
-            a.price = data;
-          });
           return a;
         })
       })
@@ -97,38 +95,5 @@ export class HoldingsService {
       'units': asset.units,
       'avgOpenPrice': asset.avgOpenPrice
     });
-  }
-
-  getTotalInvested() {
-    return this.getAssetsList().pipe(
-      map(res => {
-        return res.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
-      })
-    )
-  }
-
-  getTotalProfitLoss() {
-    return this.getAssetsList()
-    .pipe(
-      map(res => {
-        return res.map(t => t.price)
-      })
-    )
-  }
-
-  getTotalProfitLossPercent() {
-    return this.getAssetsList().pipe(
-      map(res => {
-        return res.map(t => t.units).reduce((acc, value) => acc + value, 0);
-      })
-    )
-  }
-
-  getTotal() {
-    return this.getAssetsList().pipe(
-      map(res => {
-        return res.map(t => t.price).reduce((acc, value) => acc + value, 0);
-      })
-    )
   }
 }

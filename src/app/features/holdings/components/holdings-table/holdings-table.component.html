@@ -54,7 +54,7 @@
   <ng-container matColumnDef="profitLoss">
     <th mat-header-cell *matHeaderCellDef>Profit/Loss $</th>
     <td mat-cell *matCellDef="let element">{{ (element.units * element.price) - (element.units * element.avgOpenPrice) | currency }}</td>
-    <td mat-footer-cell *matFooterCellDef class="total"> {{ totalProfitLoss }} </td>
+    <td mat-footer-cell *matFooterCellDef class="total"> {{ totalProfitLoss | currency }} </td>
   </ng-container>
 
   <!-- Profit-Loss % Column -->
@@ -63,14 +63,14 @@
     <td mat-cell *matCellDef="let element">
       {{ ((element.units * element.price) - (element.units * element.avgOpenPrice)) / (element.units * element.avgOpenPrice) | percent:'1.2-2' }}
     </td>
-    <td mat-footer-cell *matFooterCellDef class="total"> <!-- {{ totalProfitLossPercent | percent:'1.2-2' }} --> </td>
+    <td mat-footer-cell *matFooterCellDef class="total"> {{ totalProfitLossPercent | percent:'1.2-2' }} </td>
   </ng-container>
 
   <!-- Total Value Column -->
   <ng-container matColumnDef="totalValue">
     <th mat-header-cell *matHeaderCellDef >Total Value</th>
     <td mat-cell *matCellDef="let element">{{ (element.units * element.price) | currency }}</td>
-    <td mat-footer-cell *matFooterCellDef class="total"> <!-- {{ totalValue | currency }} --> </td>
+    <td mat-footer-cell *matFooterCellDef class="total"> {{ totalValue | currency }} </td>
   </ng-container>
 
   <!-- Actions Column -->

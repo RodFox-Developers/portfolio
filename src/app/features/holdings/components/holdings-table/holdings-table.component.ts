@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssetsDialogComponent } from '../add-assets-dialog/add-assets-dialog.component';
-import { map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   totalInvested: number;
-  totalProfitLoss;
+  totalProfitLoss: number;
   totalProfitLossPercent: number;
   totalValue: number;
 
@@ -35,16 +35,19 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    this.subscription = this.holdingsService.getAssetsList().subscribe(a => {
-      this.dataSource = new MatTableDataSource<HoldingsTable>(a);
-    });
-    this.holdingsService.getTotalInvested().subscribe(res => this.totalInvested = res);
-    this.holdingsService.getTotalProfitLoss().subscribe(res => {
-        console.log(res);
-      this.totalProfitLoss = res;
-    });
-    /* this.holdingsService.getTotalProfitLossPercent().subscribe(res => this.totalProfitLossPercent = res); */
-    /* this.holdingsService.getTotal().subscribe(res => this.totalValue = res); */
+    this.subscription = this.holdingsService.getAssetsList()
+      .subscribe(a => {
+        a.map(action => {
+          this.holdingsService.getStockPrice(action.symbol).pipe(take(1)).subscribe(data => {
+            action.price = data;
+            this.dataSource = new MatTableDataSource<HoldingsTable>(a);
+            this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
+            this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
+            this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
+            this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
+          });
+        })
+      });
   }
 
   ngOnDestroy() {
