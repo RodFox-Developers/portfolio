@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { User } from './../../../core/auth/models/user';
+import { Router } from '@angular/router';
+import { AuthService } from './../../../core/auth/services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -8,7 +11,10 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
+export class NavComponent implements OnInit, OnDestroy{
+
+  currentUser: User;
+  userSubscription: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
@@ -16,6 +22,28 @@ export class NavComponent {
     shareReplay()
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public authService: AuthService,
+    private router: Router
+    ) {}
+
+    ngOnInit() {
+      this.userSubscription = this.authService.user$.subscribe(user => {
+        if (user) {
+          this.currentUser = user;
+        } else {
+          this.router.navigate(['home']);
+        }
+      });
+    }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
+  onSignOut() {
+    this.authService.signOut();
+  }
 
 }

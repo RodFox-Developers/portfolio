@@ -38,3 +38,15 @@
     <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="signUpForm.invalid">Sign Up</button>
   </div>
 </form>
+
+<mat-divider></mat-divider>
+
+<button id="google-signup" type="button" mat-flat-button [mat-dialog-close]="true" (click)="signUpWithGoolge()">
+  <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2Fgoogle-signup.png?alt=media&token=d5402381-2d0a-461e-8390-29b33520b045" alt="google sign up">
+</button>
+
+<mat-divider></mat-divider>
+
+<a role="button" id="signin-link" [mat-dialog-close]="true" (click)="openLoginDialog()">
+  <p>Already registered? Sign In!!</p>
+</a>

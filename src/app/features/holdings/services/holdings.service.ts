@@ -11,6 +11,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 export class HoldingsService {
 
   assetsList: AngularFireList<HoldingsTable>;
+  //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5
 
   constructor(
     private http: HttpClient,
@@ -36,17 +37,19 @@ export class HoldingsService {
   }
 
   getStockPrice(symbol: string) {
-    return this.http.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5`)
+    return this.http.get(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=Tpk_05eb6b63ca634b8eab45963ebdb705b2`)
       .pipe(
         map(response => {
-          const dataPrice = response['Time Series (Daily)'];
+          /* const dataPrice = response['Time Series (Daily)'];
             if (dataPrice) {
               const dataPriceArray = Object.values(dataPrice);
               const lastPrice = Object.values(dataPriceArray[0]);
               return lastPrice[3];
             } else {
               return console.log('no server connection');
-            }
+            } */
+          const data = Object.values(response);
+          return data[16];
         })
       );
   }

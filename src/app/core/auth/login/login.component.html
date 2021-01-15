@@ -1,5 +1,5 @@
-<h1 mat-dialog-title>Login Form</h1>
-<form [formGroup]="loginForm" (ngSubmit)="onSignUp()">
+<h1 mat-dialog-title>Sign In Form</h1>
+<form [formGroup]="loginForm" (ngSubmit)="onSignIn()">
   <div mat-dialog-content>
     <div class="example-container">
       <mat-form-field appearance="fill">
@@ -22,9 +22,16 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="loginForm.invalid">Login</button>
+    <button type="button" mat-button mat-dialog-close>Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="loginForm.invalid">Sign In</button>
   </div>
 </form>
+<mat-divider></mat-divider>
 
+<button id="google-signin" type="button" mat-flat-button [mat-dialog-close]="true" (click)="signInWithGoolge()">
+  <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-4b863.appspot.com/o/images%2Fgoogle-signin.png?alt=media&token=ebb82bb7-c326-4314-bca5-f05f025c5ffb" alt="google sign in">
+</button>
 
+<mat-divider></mat-divider>
+
+<a role="button" id="signup-link" [mat-dialog-close]="true" (click)="openSignupDialog()">No account? Sign Up here!!</a>

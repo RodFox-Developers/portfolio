@@ -1,5 +1,9 @@
+import { NotificationService } from './../../../shared/services/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +13,12 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 export class SignupComponent implements OnInit{
 
   signUpForm: FormGroup;
+
+  constructor(
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private notificationService: NotificationService
+    ) { }
 
   ngOnInit() {
     this.signUpForm = new FormGroup({
@@ -20,7 +30,25 @@ export class SignupComponent implements OnInit{
   }
 
   onSignUp() {
-    console.log(this.signUpForm);
+    if (this.signUpForm) {
+      this.authService.signUpWithEmailAndPassword(this.signUpForm.value)
+        .catch(err => {
+          this.notificationService.warn(err.message);
+          console.log(err);
+        })
+    }
+  }
+
+  signUpWithGoolge() {
+    this.authService.signWithGoogle()
+      .catch(err => {
+        this.notificationService.warn(err.message);
+        console.log(err);
+      })
+  }
+
+  openLoginDialog() {
+    this.dialog.open(LoginComponent);
   }
 
 }
