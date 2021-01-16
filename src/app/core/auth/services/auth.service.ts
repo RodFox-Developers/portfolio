@@ -23,7 +23,12 @@ export class AuthService {
   }
 
   signUpWithEmailAndPassword(user) {
-    return this.afAuth.createUserWithEmailAndPassword(user.inputEmail, user.inputPassword);
+    return this.afAuth.createUserWithEmailAndPassword(user.inputEmail, user.inputPassword)
+      .then(userCredential => {
+        userCredential.user.updateProfile({
+          displayName: user.inputFirstName + ' ' + user.inputLastname
+        });
+      })
   }
 
   async signWithGoogle() {
