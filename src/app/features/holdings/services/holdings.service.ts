@@ -55,8 +55,8 @@ export class HoldingsService {
       );
   }
 
-  getAssetsList() {
-    this.assetsList = this.db.list<HoldingsTable>('holdingsCart')
+  getAssetsList(uid) {
+    this.assetsList = this.db.list<HoldingsTable>('/holdingsCart/' + uid)
     return this.assetsList.snapshotChanges()
     .pipe(
       map(actions => {
