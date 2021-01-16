@@ -32,8 +32,6 @@ export class NavComponent implements OnInit, OnDestroy{
       this.userSubscription = this.authService.user$.subscribe(user => {
         if (user) {
           this.currentUser = user;
-        } else {
-          this.router.navigate(['home']);
         }
       });
     }
