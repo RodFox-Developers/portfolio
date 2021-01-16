@@ -11,6 +11,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 export class HoldingsService {
 
   assetsList: AngularFireList<HoldingsTable>;
+
   //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5
 
   constructor(
@@ -55,7 +56,7 @@ export class HoldingsService {
   }
 
   getAssetsList() {
-    this.assetsList = this.db.list<HoldingsTable>('assets')
+    this.assetsList = this.db.list<HoldingsTable>('holdingsCart')
     return this.assetsList.snapshotChanges()
     .pipe(
       map(actions => {
