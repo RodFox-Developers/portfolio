@@ -1,3 +1,5 @@
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from './../../../core/auth/services/auth.service';
 import { HoldingsTable } from './../models/holdings-table.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -11,13 +13,19 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 export class HoldingsService {
 
   assetsList: AngularFireList<HoldingsTable>;
+  userId: string;
 
   //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5
 
   constructor(
     private http: HttpClient,
-    private db: AngularFireDatabase
-    ) {}
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth
+    ) {
+      this.afAuth.authState.subscribe(user => {
+        this.userId = user.uid;
+      })
+    }
 
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
@@ -55,8 +63,8 @@ export class HoldingsService {
       );
   }
 
-  getAssetsList(uid) {
-    this.assetsList = this.db.list<HoldingsTable>('/holdingsCart/' + uid)
+  getAssetsList() {
+    this.assetsList = this.db.list<HoldingsTable>(`holdingsCart/${this.userId}`)
     return this.assetsList.snapshotChanges()
     .pipe(
       map(actions => {

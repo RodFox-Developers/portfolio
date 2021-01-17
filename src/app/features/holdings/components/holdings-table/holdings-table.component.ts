@@ -21,13 +21,14 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['symbol', 'category', 'price', 'units', 'avgOpenPrice', 'invested', 'profitLoss', 'profitLossPercentage', 'totalValue', 'actions'];
   dataSource: MatTableDataSource<HoldingsTable>;
 
-  subscription: Subscription;
   userSubscription: Subscription;
 
   totalInvested: number;
   totalProfitLoss: number;
   totalProfitLossPercent: number;
   totalValue: number;
+
+  noData: boolean;
 
   constructor(
     private holdingsService: HoldingsService,
@@ -38,27 +39,27 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.user$.subscribe(user => {
-      if (user) {
-        this.subscription = this.holdingsService.getAssetsList(user.uid)
-        .subscribe(a => {
-          a.map(action => {
-            this.holdingsService.getStockPrice(action.symbol).pipe(take(1)).subscribe(data => {
-              action.price = data;
-              this.dataSource = new MatTableDataSource<HoldingsTable>(a);
-              this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
-              this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
-              this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
-              this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
-            });
-          })
-        });
-      }
-    });
+    this.userSubscription = this.holdingsService.getAssetsList()
+      .subscribe(a => {
+        a.map(action => {
+          this.holdingsService.getStockPrice(action.symbol).pipe(take(1)).subscribe(data => {
+            action.price = data;
+            this.dataSource = new MatTableDataSource<HoldingsTable>(a);
+            this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
+            this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
+            this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
+            this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
+          });
+        })
+        if (a.length > 0) {
+          this.noData = false;
+        } else {
+          this.noData = true;
+        }
+      });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
     this.userSubscription.unsubscribe();
   }
 
