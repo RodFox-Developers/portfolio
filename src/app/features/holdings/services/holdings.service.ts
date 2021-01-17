@@ -1,5 +1,3 @@
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthService } from './../../../core/auth/services/auth.service';
 import { HoldingsTable } from './../models/holdings-table.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -19,13 +17,8 @@ export class HoldingsService {
 
   constructor(
     private http: HttpClient,
-    private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
-    ) {
-      this.afAuth.authState.subscribe(user => {
-        this.userId = user.uid;
-      })
-    }
+    private db: AngularFireDatabase
+    ) {}
 
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
@@ -63,8 +56,8 @@ export class HoldingsService {
       );
   }
 
-  getAssetsList() {
-    this.assetsList = this.db.list<HoldingsTable>(`holdingsCart/${this.userId}`)
+  getAssetsList(uid) {
+    this.assetsList = this.db.list<HoldingsTable>(`holdingsCart/${uid}`)
     return this.assetsList.snapshotChanges()
     .pipe(
       map(actions => {

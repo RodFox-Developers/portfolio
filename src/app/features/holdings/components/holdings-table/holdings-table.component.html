@@ -90,12 +90,12 @@
 
   <!-- No data column -->
   <ng-container matColumnDef="noData">
-    <mat-footer-cell *matFooterCellDef>No data...</mat-footer-cell>
+    <mat-footer-cell *matFooterCellDef>No data!! Add an asset to the portfolio!!</mat-footer-cell>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'hide' : noData}"></tr>
   <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide' : dataSource != null || noData}"></mat-footer-row>
   <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide' : noData == null || !noData}"></mat-footer-row>
-  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns" [ngClass]="{'hide' : noData}"></tr>
 </table>
