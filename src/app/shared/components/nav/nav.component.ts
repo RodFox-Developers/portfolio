@@ -1,3 +1,5 @@
+import { FundsDialogComponent } from './../balance/components/funds-dialog/funds-dialog.component';
+
 import { User } from './../../../core/auth/models/user';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../core/auth/services/auth.service';
@@ -5,6 +7,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-nav',
@@ -25,7 +28,8 @@ export class NavComponent implements OnInit, OnDestroy{
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -36,6 +40,10 @@ export class NavComponent implements OnInit, OnDestroy{
           this.router.navigate(['home']);
         }
       });
+    }
+
+    funds() {
+      this.dialog.open(FundsDialogComponent);
     }
 
   ngOnDestroy() {

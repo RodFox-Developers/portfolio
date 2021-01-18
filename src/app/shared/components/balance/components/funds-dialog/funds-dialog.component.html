@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Funds</h2>
+<form [formGroup]="fundsForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Deposit/Withdraw Funds</mat-label>
+      <mat-select formControlName="category" [value]="">
+        <mat-option value="cash"> Deposit </mat-option>
+        <mat-option value="bonds"> Withdraw </mat-option>
+      </mat-select>
+      <mat-error *ngIf="fundsForm.get('category').invalid">You must select a category.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Funds</mat-label>
+      <input formControlName="funds" matInput type="number" class="example-right-align" />
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="fundsForm.get('funds').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-button mat-dialog-close (click)="fundsForm.reset()">Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="fundsForm.invalid">Save</button>
+  </div>
+</form>
+
