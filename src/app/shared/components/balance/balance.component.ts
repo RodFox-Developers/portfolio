@@ -1,3 +1,4 @@
+import { BalanceService } from './../../services/balance.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
@@ -12,7 +13,7 @@ export class BalanceComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
 
-  cashBalance: number = 10000;
+  cashBalance: number;
   totalInvested: number;
   totalProfitLoss: number;
   totalProfitLossPercent: number;
@@ -20,11 +21,13 @@ export class BalanceComponent implements OnInit, OnDestroy {
 
   constructor(
     private holdingsService: HoldingsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private balanceService: BalanceService
   ) { }
 
   ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe(user => {
+
       this.holdingsService.getAssetsList(user.uid)
       .subscribe(a => {
         a.map(action => {
@@ -35,6 +38,13 @@ export class BalanceComponent implements OnInit, OnDestroy {
             this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
             this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
           });
+        })
+      });
+
+      this.balanceService.getFunds(user.uid)
+      .subscribe(a => {
+        a.map(action => {
+            this.cashBalance = action.funds;
         })
       });
     })
