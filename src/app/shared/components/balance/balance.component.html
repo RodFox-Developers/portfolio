@@ -1,27 +1,27 @@
-<mat-card id="balance" fxLayout="row" fxLayoutAlign="start center">
-  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+<div id="balance" fxLayout="row" fxLayoutAlign="start center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Cash balance: </span>
     <span> {{ cashBalance | currency }} </span>
-  </mat-card-content>
+  </div>
 
-  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Total allocated: </span>
     <span> {{ totalInvested | currency }} </span>
-  </mat-card-content>
+  </div>
 
-  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Open P/L: </span>
     <span> {{ totalProfitLoss | currency }} </span>
-  </mat-card-content>
+  </div>
 
-  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Open P/L%: </span>
     <span> {{ totalProfitLossPercent | percent:'1.2-2' }} </span>
-  </mat-card-content>
+  </div>
 
-  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Account value: </span>
     <span> {{ totalValue | currency }} </span>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
