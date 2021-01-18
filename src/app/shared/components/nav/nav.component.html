@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Logo</mat-toolbar>
+    <mat-toolbar>AssetsTracker</mat-toolbar>
     <mat-nav-list>
       <mat-divider></mat-divider>
       <a mat-list-item [routerLink]="['dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
@@ -22,7 +22,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Portfolio Managment</span>
+      <app-balance></app-balance>
       <div class="user" fxLayoutAlign="center center">
         <mat-icon class="mat-18">account_circle</mat-icon>
         <div *ngIf="currentUser?.displayName; else userEmail" ><span> {{ currentUser.displayName }} </span></div>

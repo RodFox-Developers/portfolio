@@ -59,24 +59,6 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
         }
       });
     })
-/*     this.userSubscription = this.holdingsService.getAssetsList()
-      .subscribe(a => {
-        a.map(action => {
-          this.holdingsService.getStockPrice(action.symbol).pipe(take(1)).subscribe(data => {
-            action.price = data;
-            this.dataSource = new MatTableDataSource<HoldingsTable>(a);
-            this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
-            this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
-            this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
-            this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
-          });
-        })
-        if (a.length > 0) {
-          this.noData = false;
-        } else {
-          this.noData = true;
-        }
-      }); */
   }
 
   ngOnDestroy() {

@@ -20,6 +20,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { BalanceComponent } from './shared/components/balance/balance.component';
 
 
 
@@ -28,7 +29,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     AppComponent,
     NavComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    BalanceComponent
    ],
   imports: [
     BrowserModule,
