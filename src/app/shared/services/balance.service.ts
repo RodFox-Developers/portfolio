@@ -40,9 +40,9 @@ export class BalanceService {
     })
   }
 
-  updateFunds(funds: CashBalance, $key) {
+  updateFunds(funds, $key) {
     this.cashBalance.update($key, {
-      'funds': funds.funds
+      'funds': funds
     })
   }
 }

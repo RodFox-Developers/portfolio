@@ -42,13 +42,28 @@ export class FundsDialogComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.fundsForm.invalid) return
-    if (this.cashBalanceFund) {
-      this.balanceService.updateFunds(this.fundsForm.value, this.cashBalanceFund.$key);
-    } else {
-      this.balanceService.setFunds(this.fundsForm.value);
+    if (this.fundsForm.value.category == 'deposit') {
+
+      if (this.cashBalanceFund) {
+        let total: number = this.cashBalanceFund.funds + this.fundsForm.value.funds;
+        this.balanceService.updateFunds(total, this.cashBalanceFund.$key);
+        this.notificationService.success(':: Submitted successfully')
+      } else {
+        this.balanceService.setFunds(this.fundsForm.value);
+        this.notificationService.success(':: Submitted successfully')
+      }
+
+    } else if (this.fundsForm.value.category == 'withdraw' && this.cashBalanceFund.funds >= 0) {
+
+      let total: number = this.cashBalanceFund.funds - this.fundsForm.value.funds;
+      if (total >= 0) {
+        this.balanceService.updateFunds(total, this.cashBalanceFund.$key);
+        this.notificationService.success(':: Submitted successfully')
+      } else {
+        this.notificationService.warn(":: Sorry, you don't have enough funds")
+      }
     }
     this.fundsForm.reset();
-    this.notificationService.success(':: Submitted successfully')
   }
 
 }
