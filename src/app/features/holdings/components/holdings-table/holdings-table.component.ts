@@ -65,21 +65,21 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
-  onEdit(row) {
-    this.holdingsService.showAssetonDialog(row);
+  onBuySell(row) {
+/*     this.holdingsService.showAssetonDialog(row);
     this.dialog.open(AddAssetsDialogComponent);
-    this.holdingsService.updateAssetsList(row);
+    this.holdingsService.updateAssetsList(row); */
   }
 
-  onDelete(key) {
-    this.dialogService.openConfirmDialog()
+  onSell(row) {
+/*     this.dialogService.openConfirmDialog()
       .afterClosed().subscribe(res => {
         if (res) {
           this.holdingsService.deleteAssetList(key);
           this.notificationService.warn('! Deleted successfully');
         }
         return
-      })
+      }) */
   }
 
 }

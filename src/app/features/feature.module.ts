@@ -9,6 +9,7 @@ import { HoldingsTableComponent } from './holdings/components/holdings-table/hol
 import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { BuySellDialogComponent } from './holdings/components/buy-sell-dialog/buy-sell-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     PageNotFoundComponent,
     HoldingsTableComponent,
     AddAssetsComponent,
-    AddAssetsDialogComponent
+    AddAssetsDialogComponent,
+    BuySellDialogComponent
   ],
   imports: [
     CommonModule,
