@@ -3,14 +3,13 @@
   <div mat-dialog-content>
     <mat-form-field appearance="outline">
       <mat-label>Input symbol</mat-label>
-      <input formControlName="symbol" matInput placeholder="SPY" value="" />
+      <input id="symbol" formControlName="symbol" matInput placeholder="SPY" style="text-transform:uppercase" (keypress)="eventHandler($event)"/>
       <mat-error *ngIf="assetsForm.get('symbol').invalid">You must enter a value.</mat-error>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Select Category</mat-label>
       <mat-select formControlName="category" [value]="">
-        <mat-option value="cash"> Cash </mat-option>
         <mat-option value="bonds"> Bonds </mat-option>
         <mat-option value="stocks"> Stocks </mat-option>
         <mat-option value="commodities"> Commodities </mat-option>
@@ -20,13 +19,13 @@
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Units</mat-label>
-      <input formControlName="units" matInput type="number" class="example-right-align" />
+      <input formControlName="units" matInput type="number" class="example-right-align" min="0" (keypress)="eventNumbers($event)"/>
       <mat-error *ngIf="assetsForm.get('units').invalid">You must enter a value.</mat-error>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Avg. open price</mat-label>
-      <input formControlName="avgOpenPrice" matInput type="number" class="example-right-align" />
+      <input formControlName="avgOpenPrice" matInput type="number" class="example-right-align" min="0" (keypress)="eventNumbers($event)"/>
       <span matPrefix>$&nbsp;</span>
       <mat-error *ngIf="assetsForm.get('avgOpenPrice').invalid">You must enter a value.</mat-error>
     </mat-form-field>

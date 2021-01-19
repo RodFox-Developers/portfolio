@@ -4,7 +4,7 @@
   <ng-container matColumnDef="symbol">
     <th mat-header-cell *matHeaderCellDef >Symbol</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.symbol }}
+      {{ element.symbol | uppercase }}
     </td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
@@ -77,8 +77,8 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef ></th>
     <td mat-cell *matCellDef="let row">
-      <button mat-button color="primary" (click)="onBuySell(row)">Buy</button>
-      <button mat-button color="warn" (click)="onBuySell(row)">Sell</button>
+      <button mat-button color="primary" (click)="edit(row)">Increase/Decrease</button>
+      <button mat-button color="warn" (click)="sell(row.$key)">Sell All</button>
     </td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>

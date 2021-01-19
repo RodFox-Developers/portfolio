@@ -1,3 +1,4 @@
+import { AddAssetsDialogComponent } from './../add-assets-dialog/add-assets-dialog.component';
 import { AuthService } from './../../../../core/auth/services/auth.service';
 import { DialogService } from './../../../../shared/services/dialog.service';
 import { NotificationService } from './../../../../shared/services/notification.service';
@@ -7,7 +8,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { AddAssetsDialogComponent } from '../add-assets-dialog/add-assets-dialog.component';
 import { take } from 'rxjs/operators';
 
 
@@ -65,21 +65,21 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
-  onBuySell(row) {
-/*     this.holdingsService.showAssetonDialog(row);
+  edit(row) {
+    this.holdingsService.showAssetonDialog(row);
     this.dialog.open(AddAssetsDialogComponent);
-    this.holdingsService.updateAssetsList(row); */
+    this.holdingsService.updateAssetsList(row);
   }
 
-  onSell(row) {
-/*     this.dialogService.openConfirmDialog()
+  sell(key) {
+    this.dialogService.openConfirmDialog()
       .afterClosed().subscribe(res => {
         if (res) {
           this.holdingsService.deleteAssetList(key);
-          this.notificationService.warn('! Deleted successfully');
+          this.notificationService.success('! Successfully sold order');
         }
         return
-      }) */
+      })
   }
 
 }

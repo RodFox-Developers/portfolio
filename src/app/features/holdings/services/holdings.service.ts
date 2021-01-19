@@ -101,4 +101,5 @@ export class HoldingsService {
       'avgOpenPrice': asset.avgOpenPrice
     });
   }
+
 }
