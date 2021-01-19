@@ -12,7 +12,7 @@
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Funds</mat-label>
-      <input formControlName="funds" matInput type="number" class="example-right-align" />
+      <input formControlName="funds" matInput type="number" class="example-right-align" min="0" (keypress)="eventNumbers($event)"/>
       <span matPrefix>$&nbsp;</span>
       <mat-error *ngIf="fundsForm.get('funds').invalid">You must enter a value.</mat-error>
     </mat-form-field>

@@ -66,4 +66,12 @@ export class FundsDialogComponent implements OnInit, OnDestroy {
     this.fundsForm.reset();
   }
 
+  eventNumbers(event) {
+    if(!((event.keyCode > 95 && event.keyCode < 106)
+    || (event.keyCode > 47 && event.keyCode < 58)
+    || event.keyCode == 8)) {
+      return false;
+    }
+  }
+
 }
