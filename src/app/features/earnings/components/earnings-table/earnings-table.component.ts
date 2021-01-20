@@ -70,9 +70,4 @@ export class EarningsTableComponent implements OnInit {
       })
   }
 
-  openDialog() {
-    this.earningsService.initFormGroup();
-    this.dialog.open(EarningsDialogComponent);
-  }
-
 }

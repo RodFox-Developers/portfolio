@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EarningsDialogComponent } from './components/earnings-dialog/earnings-dialog.component';
+import { EarningsService } from './services/earnings.service';
 
 @Component({
   selector: 'app-earnings',
   templateUrl: './earnings.component.html',
   styleUrls: ['./earnings.component.scss']
 })
-export class EarningsComponent implements OnInit {
+export class EarningsComponent {
 
-  constructor() { }
+  constructor(
+    private earningsService: EarningsService,
+    public dialog: MatDialog
+  ) { }
 
-  ngOnInit(): void {
+  openDialog() {
+    this.earningsService.initFormGroup();
+    this.dialog.open(EarningsDialogComponent);
   }
 
 }

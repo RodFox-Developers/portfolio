@@ -1,3 +1,5 @@
+import { EarningsDialogComponent } from './earnings/components/earnings-dialog/earnings-dialog.component';
+import { EarningsTableComponent } from './earnings/components/earnings-table/earnings-table.component';
 import { AddAssetsDialogComponent } from './holdings/components/add-assets-dialog/add-assets-dialog.component';
 import { AddAssetsComponent } from './holdings/components/add-assets/add-assets.component';
 import { HoldingsComponent } from './holdings/holdings.component';
@@ -10,8 +12,7 @@ import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { EarningsComponent } from './earnings/earnings.component';
-import { EarningsTableComponent } from './earnings/components/earnings-table/earnings-table.component';
-import { EarningsDialogComponent } from './earnings/components/earnings-dialog/earnings-dialog.component';
+
 
 
 @NgModule({
@@ -24,8 +25,7 @@ import { EarningsDialogComponent } from './earnings/components/earnings-dialog/e
     AddAssetsDialogComponent,
     EarningsComponent,
     EarningsTableComponent,
-    EarningsDialogComponent,
-
+    EarningsDialogComponent
   ],
   imports: [
     CommonModule,
