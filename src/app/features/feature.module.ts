@@ -9,6 +9,9 @@ import { HoldingsTableComponent } from './holdings/components/holdings-table/hol
 import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { EarningsComponent } from './earnings/earnings.component';
+import { EarningsTableComponent } from './earnings/components/earnings-table/earnings-table.component';
+import { EarningsDialogComponent } from './earnings/components/earnings-dialog/earnings-dialog.component';
 
 
 @NgModule({
@@ -19,6 +22,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     HoldingsTableComponent,
     AddAssetsComponent,
     AddAssetsDialogComponent,
+    EarningsComponent,
+    EarningsTableComponent,
+    EarningsDialogComponent,
 
   ],
   imports: [

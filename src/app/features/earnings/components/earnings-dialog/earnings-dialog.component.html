@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Earnings</h2>
+<form [formGroup]="earningsForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Input symbol</mat-label>
+      <input id="symbol" formControlName="symbol" matInput placeholder="SPY" style="text-transform:uppercase" (keypress)="eventHandler($event)"/>
+      <mat-error *ngIf="earningsForm.get('symbol').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input formControlName="date" type="date" matInput>
+      <mat-error *ngIf="earningsForm.get('date').invalid">You must enter date.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Open price</mat-label>
+      <input formControlName="openPrice" matInput type="number" class="example-right-align" min="0" (keypress)="eventNumbers($event)"/>
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="earningsForm.get('openPrice').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Close price</mat-label>
+      <input formControlName="closePrice" matInput type="number" class="example-right-align" min="0" (keypress)="eventNumbers($event)"/>
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="earningsForm.get('closePrice').invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-button mat-dialog-close (click)="earningsForm.reset()">Close</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="earningsForm.invalid">Save</button>
+  </div>
+</form>
+

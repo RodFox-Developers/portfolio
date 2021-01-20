@@ -8,8 +8,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-holdings-table',

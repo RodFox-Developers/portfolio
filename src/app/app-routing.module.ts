@@ -1,3 +1,4 @@
+import { EarningsComponent } from './features/earnings/earnings.component';
 import { AuthGuardService } from './core/auth/services/auth-guard.service';
 import { NavComponent } from './shared/components/nav/nav.component';
 import { HomeComponent } from './features/home/home.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'nav', component: NavComponent, children: [
     { path: '', redirectTo: '/nav/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'holdings', component: HoldingsComponent }
+    { path: 'holdings', component: HoldingsComponent },
+    { path: 'earnings', component: EarningsComponent }
   ], canActivate: [AuthGuardService] },
   { path: '**', component: PageNotFoundComponent }
 ];
