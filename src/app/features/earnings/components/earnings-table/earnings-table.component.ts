@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/core/auth/services/auth.service';
 })
 export class EarningsTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['symbol', 'date', 'openPrice', 'closePrice', 'profit', 'actions'];
+  displayedColumns: string[] = ['symbol', 'date', 'units', 'openPrice', 'closePrice', 'profit', 'actions'];
   dataSource: MatTableDataSource<Earnings>;
 
   userSubscription: Subscription;
@@ -39,7 +39,7 @@ export class EarningsTableComponent implements OnInit {
       this.earningsService.getEarningsList(user.uid)
       .subscribe(a => {
         this.dataSource = new MatTableDataSource<Earnings>(a);
-        this.totalEarnings = a.map(t => t.closePrice - t.openPrice).reduce((acc, value) => acc + value, 0);
+        this.totalEarnings = a.map(t => (t.closePrice * t.units) - (t.openPrice * t.units)).reduce((acc, value) => acc + value, 0);
         if (a.length > 0) {
           this.noData = false;
         } else {

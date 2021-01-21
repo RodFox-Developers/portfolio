@@ -18,6 +18,7 @@ export class EarningsService {
     $key: new FormControl(null),
     'symbol': new FormControl(null, Validators.required),
     'date': new FormControl(null, Validators.required),
+    'units': new FormControl(null, Validators.required),
     'openPrice': new FormControl(null, Validators.required),
     'closePrice': new FormControl(null, Validators.required)
   })
@@ -27,6 +28,7 @@ export class EarningsService {
       $key: null,
       'symbol': '',
       'date': null,
+      'units': null,
       'openPrice': null,
       'closePrice': null
     })
@@ -50,6 +52,7 @@ export class EarningsService {
     this.earningsList.push({
       'symbol': earn.symbol,
       'date': earn.date,
+      'units': earn.units,
       'openPrice': earn.openPrice,
       'closePrice': earn.closePrice
     })
@@ -59,6 +62,7 @@ export class EarningsService {
     this.earningsList.update(earn.$key, {
       'symbol': earn.symbol,
       'date': earn.date,
+      'units': earn.units,
       'openPrice': earn.openPrice,
       'closePrice': earn.closePrice
     })
@@ -73,6 +77,7 @@ export class EarningsService {
       $key: earn.$key,
       'symbol': earn.symbol,
       'date': earn.date,
+      'units': earn.units,
       'openPrice': earn.openPrice,
       'closePrice': earn.closePrice
     });

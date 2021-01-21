@@ -9,7 +9,7 @@
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
 
-  <!-- Category Column -->
+  <!-- Date Column -->
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef >Date</th>
     <td mat-cell *matCellDef="let element">
@@ -18,14 +18,23 @@
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
 
-  <!-- Price Column -->
+  <!-- Units Column -->
+  <ng-container matColumnDef="units">
+    <th mat-header-cell *matHeaderCellDef>Sold Units</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.units }}
+    </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Open Price Column -->
   <ng-container matColumnDef="openPrice">
     <th mat-header-cell *matHeaderCellDef >Open Price</th>
     <td mat-cell *matCellDef="let element">{{ element.openPrice | currency }}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
 
-  <!-- Units Column -->
+  <!-- Close Price Column -->
   <ng-container matColumnDef="closePrice">
     <th mat-header-cell *matHeaderCellDef>Close Price</th>
     <td mat-cell *matCellDef="let element">
@@ -34,11 +43,11 @@
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
 
-  <!-- Avg. Open Price Column -->
+  <!-- Profit Column -->
   <ng-container matColumnDef="profit">
     <th mat-header-cell *matHeaderCellDef >Profit</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.closePrice - element.openPrice | currency }}
+      {{ (element.closePrice * element.units) - (element.openPrice * element.units) | currency }}
     </td>
     <td mat-footer-cell *matFooterCellDef class="total"> {{ totalEarnings | currency }} </td>
   </ng-container>
