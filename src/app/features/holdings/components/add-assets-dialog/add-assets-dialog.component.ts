@@ -31,7 +31,7 @@ export class AddAssetsDialogComponent implements OnInit {
       if (this.assetsForm.value.units > 0) {
         this.holdingsService.updateAssetsList(this.holdingsService.form.value);
         this.notificationService.success(':: Submitted successfully');
-        this.dialogService.openConfirmDialog('If you sold some units. Please update the earnings table¡')
+        this.dialogService.openConfirmDialog('If you sold some units. Please update the earnings table!')
             .afterClosed().subscribe(res => {
               if (res) {
                 this.router.navigate(['nav/earnings']);
