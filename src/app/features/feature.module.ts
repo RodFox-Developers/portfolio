@@ -12,8 +12,7 @@ import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { EarningsComponent } from './earnings/earnings.component';
-
-
+import { MatConfirmDialogComponent } from '../shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +24,14 @@ import { EarningsComponent } from './earnings/earnings.component';
     AddAssetsDialogComponent,
     EarningsComponent,
     EarningsTableComponent,
-    EarningsDialogComponent
+    EarningsDialogComponent,
+    MatConfirmDialogComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    AngularFireDatabaseModule,
+    AngularFireDatabaseModule
   ]
 })
 export class FeatureModule { }

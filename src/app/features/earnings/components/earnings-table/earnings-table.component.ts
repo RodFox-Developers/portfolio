@@ -60,7 +60,7 @@ export class EarningsTableComponent implements OnInit {
   }
 
   deleteRow(key) {
-    this.dialogService.openConfirmDialog()
+    this.dialogService.openConfirmDialog('Are you sure you want to delete the earning?')
       .afterClosed().subscribe(res => {
         if (res) {
           this.earningsService.deleteEarningsList(key);
@@ -68,6 +68,7 @@ export class EarningsTableComponent implements OnInit {
         }
         return
       })
+
   }
 
 }

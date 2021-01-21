@@ -70,7 +70,7 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
   }
 
   sell(key) {
-    this.dialogService.openConfirmDialog()
+    this.dialogService.openConfirmDialog('Are you sure you want to sell all the units?')
       .afterClosed().subscribe(res => {
         if (res) {
           this.holdingsService.deleteAssetList(key);

@@ -22,8 +22,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { BalanceComponent } from './shared/components/balance/balance.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
