@@ -1,10 +1,11 @@
+import { Router } from '@angular/router';
 import { AddAssetsDialogComponent } from './../add-assets-dialog/add-assets-dialog.component';
 import { AuthService } from './../../../../core/auth/services/auth.service';
 import { DialogService } from './../../../../shared/services/dialog.service';
 import { NotificationService } from './../../../../shared/services/notification.service';
 import { HoldingsTable } from './../../models/holdings-table.interface';
 import { HoldingsService } from './../../services/holdings.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,7 +34,8 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public notificationService: NotificationService,
     private dialogService: DialogService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
     ) {}
 
   ngOnInit() {
@@ -75,6 +77,13 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
         if (res) {
           this.holdingsService.deleteAssetList(key);
           this.notificationService.success('! Successfully sold order');
+          this.dialogService.openConfirmDialog('Please update the earnings table')
+            .afterClosed().subscribe(res => {
+              if (res) {
+                this.router.navigate(['nav/earnings']);
+              }
+              return
+            })
         }
         return
       })
