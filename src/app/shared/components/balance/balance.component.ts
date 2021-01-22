@@ -1,8 +1,10 @@
+import { EarningsService } from './../../../features/earnings/services/earnings.service';
 import { BalanceService } from './../../services/balance.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { HoldingsService } from 'src/app/features/holdings/services/holdings.service';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-balance',
@@ -13,16 +15,17 @@ export class BalanceComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
 
-  cashBalance: number;
-  totalInvested: number;
-  totalProfitLoss: number;
-  totalProfitLossPercent: number;
-  totalValue: number;
+  depositWithdrawBanalce: number = 0;
+  totalEarnings: number = 0;
+  totalInvested: number = 0;
+  totalProfitLoss: number = 0;
+  totalProfitLossPercent: number = 0;
 
   constructor(
     private holdingsService: HoldingsService,
     private authService: AuthService,
-    private balanceService: BalanceService
+    private balanceService: BalanceService,
+    private earningsService: EarningsService
   ) { }
 
   ngOnInit() {
@@ -36,17 +39,21 @@ export class BalanceComponent implements OnInit, OnDestroy {
             this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
             this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
             this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
-            this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
           });
         })
       });
 
-      this.balanceService.getFunds(user.uid)
+      this.earningsService.getEarningsList(user.uid)
       .subscribe(a => {
-        a.map(action => {
-            this.cashBalance = action.funds;
-        })
+        this.totalEarnings = a.map(t => (t.closePrice * t.units) - (t.openPrice * t.units)).reduce((acc, value) => acc + value, 0);
       });
+
+      this.balanceService.getFunds(user.uid)
+        .subscribe(a => {
+          a.map(action => {
+              this.depositWithdrawBanalce = action.funds;
+          })
+        });
     })
   }
 

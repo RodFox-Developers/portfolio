@@ -1,7 +1,12 @@
 <div id="balance" fxLayout="row" fxLayoutAlign="start center">
   <div fxLayout="column" fxLayoutAlign="center center">
+    <span>Cash available: </span>
+    <span> {{ depositWithdrawBanalce + totalEarnings - totalInvested | currency }} </span>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
     <span>Cash balance: </span>
-    <span> {{ cashBalance | currency }} </span>
+    <span> {{ depositWithdrawBanalce + totalEarnings | currency }} </span>
   </div>
 
   <div fxLayout="column" fxLayoutAlign="center center">
@@ -21,7 +26,8 @@
 
   <div fxLayout="column" fxLayoutAlign="center center">
     <span>Account value: </span>
-    <span> {{ totalValue | currency }} </span>
+    <span> {{ depositWithdrawBanalce + totalEarnings + totalProfitLoss | currency }} </span>
   </div>
+
 </div>
 

@@ -13,7 +13,8 @@ export class HoldingsService {
   assetsList: AngularFireList<HoldingsTable>;
   userId: string;
 
-  //https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5
+  //alphaVantage = https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=SUHZ26DQ79BZZ3R5
+  //IEXCloudSandBox = https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=Tpk_05eb6b63ca634b8eab45963ebdb705b2
 
   constructor(
     private http: HttpClient,
@@ -39,7 +40,7 @@ export class HoldingsService {
   }
 
   getStockPrice(symbol: string) {
-    return this.http.get(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=Tpk_05eb6b63ca634b8eab45963ebdb705b2`)
+    return this.http.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_8273ee4b39ad47429ae5dff65934a0b5`)
       .pipe(
         map(response => {
           /* const dataPrice = response['Time Series (Daily)'];
