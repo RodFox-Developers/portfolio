@@ -3,7 +3,6 @@ import { EarningsTableComponent } from './earnings/components/earnings-table/ear
 import { AddAssetsDialogComponent } from './holdings/components/add-assets-dialog/add-assets-dialog.component';
 import { AddAssetsComponent } from './holdings/components/add-assets/add-assets.component';
 import { HoldingsComponent } from './holdings/holdings.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -13,10 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { EarningsComponent } from './earnings/earnings.component';
 import { MatConfirmDialogComponent } from '../shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     HoldingsComponent,
     PageNotFoundComponent,
     HoldingsTableComponent,
@@ -25,7 +24,8 @@ import { MatConfirmDialogComponent } from '../shared/components/mat-confirm-dial
     EarningsComponent,
     EarningsTableComponent,
     EarningsDialogComponent,
-    MatConfirmDialogComponent
+    MatConfirmDialogComponent,
+    StatsComponent
   ],
   imports: [
     CommonModule,
