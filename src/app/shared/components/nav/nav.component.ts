@@ -1,5 +1,4 @@
 import { FundsDialogComponent } from './../balance/components/funds-dialog/funds-dialog.component';
-
 import { User } from './../../../core/auth/models/user';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../core/auth/services/auth.service';
@@ -32,19 +31,19 @@ export class NavComponent implements OnInit, OnDestroy{
     public dialog: MatDialog
     ) {}
 
-    ngOnInit() {
-      this.userSubscription = this.authService.user$.subscribe(user => {
-        if (user) {
-          this.currentUser = user;
-        } else {
-          this.router.navigate(['home']);
-        }
-      });
-    }
+  ngOnInit() {
+    this.userSubscription = this.authService.user$.subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+      } else {
+        this.router.navigate(['home']);
+      }
+    });
+  }
 
-    funds() {
-      this.dialog.open(FundsDialogComponent);
-    }
+  funds() {
+    this.dialog.open(FundsDialogComponent);
+  }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();

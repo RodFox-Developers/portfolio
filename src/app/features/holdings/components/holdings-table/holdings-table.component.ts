@@ -5,7 +5,7 @@ import { DialogService } from './../../../../shared/services/dialog.service';
 import { NotificationService } from './../../../../shared/services/notification.service';
 import { HoldingsTable } from './../../models/holdings-table.interface';
 import { HoldingsService } from './../../services/holdings.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,14 +43,11 @@ export class HoldingsTableComponent implements OnInit, OnDestroy {
       this.holdingsService.getAssetsList(user.uid)
       .subscribe(a => {
         a.map(action => {
-          this.holdingsService.getStockPrice(action.symbol).subscribe(data => {
-            action.price = data;
             this.dataSource = new MatTableDataSource<HoldingsTable>(a);
             this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
             this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
             this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
             this.totalValue = a.map(t => t.units * t.price).reduce((acc, value) => acc + value, 0);
-          });
         })
         if (a.length > 0) {
           this.noData = false;

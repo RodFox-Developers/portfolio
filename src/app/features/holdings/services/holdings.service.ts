@@ -53,6 +53,7 @@ export class HoldingsService {
               return console.log('no server connection');
             } */
           const data = Object.values(response);
+          console.log('api request');
           return data[16];
         })
       );
@@ -86,7 +87,8 @@ export class HoldingsService {
       'symbol': asset.symbol,
       'category': asset.category,
       'units': asset.units,
-      'avgOpenPrice': asset.avgOpenPrice
+      'avgOpenPrice': asset.avgOpenPrice,
+      'price': asset.price
     })
   }
 
