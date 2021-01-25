@@ -87,8 +87,17 @@ export class HoldingsService {
       'symbol': asset.symbol,
       'category': asset.category,
       'units': asset.units,
+      'avgOpenPrice': asset.avgOpenPrice
+    })
+  }
+
+  initAssetsList(asset: HoldingsTable) {
+    this.assetsList.update(asset.$key, {
+      'symbol': asset.symbol,
+      'category': asset.category,
+      'units': asset.units,
       'avgOpenPrice': asset.avgOpenPrice,
-      'price': asset.price
+      'price': asset?.price
     })
   }
 
