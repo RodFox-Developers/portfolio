@@ -1,9 +1,12 @@
+import { EarningsService } from './../../../../../features/earnings/services/earnings.service';
+import { HoldingsService } from 'src/app/features/holdings/services/holdings.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../../../../core/auth/services/auth.service';
 import { BalanceService } from './../../../../services/balance.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-funds-dialog',
@@ -12,7 +15,10 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class FundsDialogComponent implements OnInit, OnDestroy {
 
-  cashBalanceFund;
+  depositWithdrawBanalce;
+  totalInvested;
+  totalEarnings;
+  cashAvailable;
 
   fundsForm: FormGroup;
 
@@ -21,17 +27,34 @@ export class FundsDialogComponent implements OnInit, OnDestroy {
   constructor(
     private balanceService: BalanceService,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private holdingsService: HoldingsService,
+    private earningsService: EarningsService
   ) { }
 
   ngOnInit(): void {
     this.fundsForm = this.balanceService.form;
     this.userSubscription = this.authService.user$.subscribe(user => {
-      this.balanceService.getFunds(user.uid)
+      this.holdingsService.getAssetsList(user.uid)
+      .pipe(take(1))
       .subscribe(a => {
         a.map(action => {
-            this.cashBalanceFund = action;
+          this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
         })
+      });
+
+    this.earningsService.getEarningsList(user.uid)
+      .subscribe(a => {
+        this.totalEarnings = a.map(t => (t.closePrice * t.units) - (t.openPrice * t.units)).reduce((acc, value) => acc + value, 0);
+      });
+
+    this.balanceService.getFunds(user.uid)
+      .subscribe(a => {
+        a.map(action => {
+            this.depositWithdrawBanalce = action;
+
+        })
+        this.cashAvailable = this.depositWithdrawBanalce.funds + this.totalEarnings - this.totalInvested;
       });
     })
   }
@@ -42,22 +65,20 @@ export class FundsDialogComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.fundsForm.invalid) return
+    let verifyCashAvailable: number = this.cashAvailable - this.fundsForm.value.funds;
     if (this.fundsForm.value.category == 'deposit') {
-
-      if (this.cashBalanceFund) {
-        let total: number = this.cashBalanceFund.funds + this.fundsForm.value.funds;
-        this.balanceService.updateFunds(total, this.cashBalanceFund.$key);
+      let total: number = this.depositWithdrawBanalce.funds + this.fundsForm.value.funds;
+      if (this.depositWithdrawBanalce) {
+        this.balanceService.updateFunds(total, this.depositWithdrawBanalce.$key);
         this.notificationService.success(':: Submitted successfully')
       } else {
         this.balanceService.setFunds(this.fundsForm.value);
         this.notificationService.success(':: Submitted successfully')
       }
-
-    } else if (this.fundsForm.value.category == 'withdraw' && this.cashBalanceFund.funds >= 0) {
-
-      let total: number = this.cashBalanceFund.funds - this.fundsForm.value.funds;
-      if (total >= 0) {
-        this.balanceService.updateFunds(total, this.cashBalanceFund.$key);
+    } else if (this.fundsForm.value.category == 'withdraw' && this.depositWithdrawBanalce.funds >= 0) {
+      let total: number = this.depositWithdrawBanalce.funds - this.fundsForm.value.funds;
+      if (verifyCashAvailable >= 0) {
+        this.balanceService.updateFunds(total, this.depositWithdrawBanalce.$key);
         this.notificationService.success(':: Submitted successfully')
       } else {
         this.notificationService.warn(":: Sorry, you don't have enough funds")
