@@ -58,8 +58,7 @@ export class NavComponent implements OnInit, OnDestroy{
       )
       .subscribe(res => {
         res.subscribe(assets => {
-          console.log('updated');
-          this.holdingsService.updateAssetsList(assets);
+          this.holdingsService.initAssetsList(assets);
         })
       });
     });
