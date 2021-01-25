@@ -5,8 +5,9 @@ import { AuthService } from './../../../core/auth/services/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, mergeMap, shareReplay, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
+import { HoldingsService } from 'src/app/features/holdings/services/holdings.service';
 
 @Component({
   selector: 'app-nav',
@@ -28,7 +29,8 @@ export class NavComponent implements OnInit, OnDestroy{
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private holdingsService: HoldingsService,
     ) {}
 
   ngOnInit() {
@@ -38,6 +40,28 @@ export class NavComponent implements OnInit, OnDestroy{
       } else {
         this.router.navigate(['home']);
       }
+
+      this.holdingsService.getAssetsList(user.uid)
+      .pipe(
+        take(1),
+        mergeMap(a => {
+          return a.map(action => {
+            return this.holdingsService.getStockPrice(action.symbol)
+              .pipe(
+                map(data => {
+                  action.price = data;
+                  return action;
+                })
+              )
+          })
+        })
+      )
+      .subscribe(res => {
+        res.subscribe(assets => {
+          console.log('updated');
+          this.holdingsService.updateAssetsList(assets);
+        })
+      });
     });
   }
 

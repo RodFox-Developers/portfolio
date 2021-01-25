@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { HoldingsService } from 'src/app/features/holdings/services/holdings.service';
-import { map, mergeMap, take } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-balance',
@@ -28,31 +28,10 @@ export class BalanceComponent implements OnInit, OnDestroy {
     private balanceService: BalanceService,
     private earningsService: EarningsService,
     private performanceService: PerformanceService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.user$.subscribe(user => {
-
-      this.holdingsService.getAssetsList(user.uid)
-      .pipe(
-        take(1),
-        mergeMap(a => {
-          return a.map(action => {
-            return this.holdingsService.getStockPrice(action.symbol)
-              .pipe(
-                map(data => {
-                  action.price = data;
-                  return action;
-                })
-              )
-          })
-        })
-      )
-      .subscribe(res => {
-        res.subscribe(assets => {
-          this.holdingsService.updateAssetsList(assets);
-        })
-      });
+    this.userSubscription = this.authService.user$.pipe(debounceTime(5000)).subscribe(user => {
 
       this.performanceService.getPerformance(user.uid);
 
@@ -63,6 +42,7 @@ export class BalanceComponent implements OnInit, OnDestroy {
             this.totalInvested = a.map(t => t.units * t.avgOpenPrice).reduce((acc, value) => acc + value, 0);
             this.totalProfitLoss = a.map(t => (t.units * t.price) - (t.units * t.avgOpenPrice)).reduce((acc, value) => acc + value, 0);
             this.totalProfitLossPercent = this.totalProfitLoss / this.totalInvested;
+            console.log('get data');
           })
         });
 
