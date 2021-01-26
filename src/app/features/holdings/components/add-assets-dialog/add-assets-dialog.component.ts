@@ -128,9 +128,8 @@ export class AddAssetsDialogComponent implements OnInit, OnDestroy {
   }
 
   eventNumbers(event) {
-    if(!((event.keyCode > 95 && event.keyCode < 106)
-    || (event.keyCode > 47 && event.keyCode < 58)
-    || event.keyCode == 8)) {
+    if (event.key == "-") {
+      event.preventDefault();
       return false;
     }
   }
